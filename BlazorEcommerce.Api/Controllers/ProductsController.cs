@@ -1,16 +1,17 @@
-﻿using BlazorEcommerce.Api.Repositories;
+﻿using BlazorEcommerce.Api.Mappings;
+using BlazorEcommerce.Api.Repositories;
 using BlazorEcommerce.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorEcommerce.Api.Mappings;
+namespace BlazorEcommerce.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductController : ControllerBase
+public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _productRepository;
 
-    public ProductController(IProductRepository produtoRepository)
+    public ProductsController(IProductRepository produtoRepository)
     {
         _productRepository = produtoRepository;
     }

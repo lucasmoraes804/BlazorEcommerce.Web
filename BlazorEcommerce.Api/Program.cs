@@ -1,4 +1,5 @@
 using BlazorEcommerce.Api.Context;
+using BlazorEcommerce.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<AppDbContext>(option =>
     option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(policy =>
-    policy.WithOrigins("http://localhost:7023", "https://localhost:7023")
+    policy.WithOrigins("http://localhost:7133", "https://localhost:7133")
     .AllowAnyMethod()
     .AllowAnyHeader()
     .WithHeaders(HeaderNames.ContentType)
