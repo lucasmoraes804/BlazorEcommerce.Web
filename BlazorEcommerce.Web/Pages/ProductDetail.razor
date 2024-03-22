@@ -1,0 +1,64 @@
+﻿@page "/ProductDetail/{Id:int}"
+
+
+@if (Product is null && MessageError is null)
+{
+    <ShowSpinner />
+}
+else if (MessageError is not null)
+{
+    <ShowError MessageError="@MessageError"></ShowError>
+}
+else
+{
+    <h3 class="mb-5">Detalhes do Produto</h3>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <img class="img-fluid" src="@Product.ImageUrl">
+        </div>
+        <div class="col-md-6">
+            <h3>@Product.Name</h3>
+            <p class="mb-4">@Product.Description</p>
+            <p class="mb-4">
+                <b>
+                    @Product.Price.ToString("C")&nbsp;(@Product.Amount items em estoque)
+                </b>
+            </p>
+            <div>
+                <button class="btn btn-success"
+                    @*onclick="() => AddToCart_Click(new CarrinhoItemAdicionaDto{
+                         CarrinhoId = UsuarioLogado.CarrinhoId,
+                         ProdutoId = Product.Id,
+                         Quantidade = 1
+                  })"*@>
+                    Incluir no Carrinho
+                </button>
+            </div>
+
+        </div>
+    </div>
+}
+
+@code {
+    [Inject]
+    public IProductService? ProdutoService { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public ProductDto? Product { get; set; }
+
+    public string? MessageError { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Product = await ProdutoService.GetItem(Id);
+        }
+        catch (Exception ex)
+        {
+            MessageError = ex.Message;
+        }
+    }
+}
