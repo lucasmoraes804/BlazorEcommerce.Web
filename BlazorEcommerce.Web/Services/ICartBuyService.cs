@@ -1,15 +1,15 @@
-﻿using BlazorShop.Models.DTOs;
+﻿using BlazorEcommerce.Models.DTOs;
 
-namespace BlazorShop.Web.Services;
+namespace BlazorEcommerce.Web.Services;
 
-public interface ICarrinhoCompraService
+public interface ICartBuyService
 {
-    Task<List<CarrinhoItemDto>> GetItens(string usuarioId);
-    Task<CarrinhoItemDto> AdicionaItem(CarrinhoItemAdicionaDto carrinhoItemAdicionaDto);
-    Task<CarrinhoItemDto> DeletaItem(int id);
-    Task<CarrinhoItemDto> AtualizaQuantidade(CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto);
+    Task<CartItemDto> AddItem(CartItemAddsDto cartItemAddsDto);
 
-    event Action<int> OnCarrinhoCompraChanged;
-    void RaiseEventOnCarrinhoCompraChanged(int totalQuantidade);
+    Task<CartItemDto> UpdateAmount(CartItemUpdateAmountDto cartItemUpdateAmountDto);
+
+    Task<CartItemDto> DeleteItem(int id);
+
+    Task<List<CartItemDto>> GetItems(string userId);
 
 }
